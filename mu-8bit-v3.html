@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mũ Lưỡi Trai 8-Bit v3</title>
+    <style>
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .khung-trang {
+            background-color: #ffffff;
+            border-top-left-radius: 40px;
+            padding: 60px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: flex;
+        }
+
+        canvas {
+            image-rendering: pixelated;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="khung-trang">
+        <canvas id="canvasMu"></canvas>
+    </div>
+
+    <script>
+        const maMau = {
+            'b': '#0d1117', // Viền đen
+            '1': '#4a75b5', // Xanh sáng (phần thân nón)
+            '2': '#2b447a', // Xanh đậm (phần trong lưỡi trai)
+            ' ': null       // Trong suốt
+        };
+
+        // Quan sát kỹ ảnh cung cấp, đây là ma trận điểm ảnh chính xác
+        const anhPixel = [
+            "               ",
+            "   bbbbbb      ",
+            "  b111111bb    ",
+            " b12b111111b   ",
+            " b12b1111111b  ",
+            " b12b1111111b  ",
+            " b11b1111111b  ",
+            " b11b1111111b  ",
+            "bb11bbbbbb11b  ",
+            "b11b111111bb b ",
+            "b111111111111b ",
+            " b2211111111bb ",
+            "  bbbbbbbbbb   "
+        ];
+
+        const kichThuocPixel = 20; // Tăng kích thước pixel lên cho rõ
+        const canvas = document.getElementById('canvasMu');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = anhPixel[0].length * kichThuocPixel;
+        canvas.height = anhPixel.length * kichThuocPixel;
+
+        for (let y = 0; y < anhPixel.length; y++) {
+            for (let x = 0; x < anhPixel[y].length; x++) {
+                const kyTu = anhPixel[y][x];
+                if (maMau[kyTu]) {
+                    ctx.fillStyle = maMau[kyTu];
+                    ctx.fillRect(x * kichThuocPixel, y * kichThuocPixel, kichThuocPixel, kichThuocPixel);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
